@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href = "/index">Back</a>
-	<p>Hello ${name}!</p>
+<a href = "/">Back</a>
+	<p>Hello ${firstname}! </p>
 </body>
 </html>

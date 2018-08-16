@@ -21,9 +21,33 @@ public class CoffeeShopController {
 	}
 	
 	@RequestMapping("/summary")
-	public ModelAndView showSummaryPage(@RequestParam("name")String name) {
+	public ModelAndView showSummaryPage(@RequestParam("firstname")String name) {
 		ModelAndView mav = new ModelAndView("summary");
-		mav.addObject(name);
+		mav.addObject("firstname", name);
 		return mav;	
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
