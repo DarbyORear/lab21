@@ -1,0 +1,52 @@
+body {
+	background-color: #408080;
+	text-align: center;
+}
+
+h1 {
+	font-size: 50px;
+	color: #400000;
+}
+
+#attentiongrab {
+	color: white;
+	font-size: 30px;
+}
+
+a{
+	color: #400000;
+	font-size: 20px;
+}
+
+#coffee {
+	border: 3px solid #400000;
+	border-radius: 50%;
+	height: 200px;
+}
+
+
+button {
+	border: 2px solid #400000;
+	padding: 8px;
+	border-radius: 20px;
+	background-color: #9b4819;
+}
+
+label {
+	font-color: white;
+}
+
+.container-fluid {
+	width: 100%;
+}
+
+#registration-heading {
+	color: #400000;
+}
+
+
+
+
+
+
+	

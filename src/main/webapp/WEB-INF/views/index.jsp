@@ -7,11 +7,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CoffeeShop</title>
+<link rel = "stylesheet" href = "/style.css">
 </head>
 <body>
+	<div class = "div">
 	<h1>Welcome to the Java Bean!</h1>
-	
-	<a href = "/register">Register here!</a>
-	
+	<img id = "coffee" src = "/images/coffeecupimage.jpg"/>
+	<p id = "attentiongrab"> Create an account to get gourmet coffee delivered straight to your door </p>
+	<p><button> <a href = "/register">Create Account</a></button></p>
+	</div>
 </body>
 </html>

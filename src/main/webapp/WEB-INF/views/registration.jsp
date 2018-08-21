@@ -3,33 +3,60 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel = "stylesheet" href = "/style.css">
 </head>
-<body>
-	<h2>Please fill out the form to register.</h2>
-	<!-- Form action determines the next URL path -->
-	<form action="/summary">
-		<p>
-			First Name: <input name="firstname"/>
-		</p>
-		<p>
-			Last Name: <input name="lastname"/>
-		</p>
-		<p>
-			Email: <input name="email"/>
-		</p>
-		<p>
-			Phone Number: <input name="phonenum"/>
-		</p>
-		<p>
-			Password: <input name="password"/>
-		</p>	
-		<p>
-			<button>Register</button>
-		</p>
-	
-	</form>
 
-</body>
+	<body>
+	<div class = "container">
+				<h2 id = "registration-heading"> Please fill out the form to register.</h2>
+				
+				<form class = "form-horizontal" action="/practiceform" method = "post">
+				
+					<div class = "form-group row">
+					<label id = "nameid" class = "control-label col-sm-4 text-left" for = "firstname">First Name:</label> 
+					<input class = "form-control col-sm-8" id = "firstname" name="firstname" required minlength = "2"/ placeholder="Enter First Name">
+					</div>
+					
+					<div class = "form-group row">
+					<label class = "control-label col-sm-4 text-left" for = "lastname">Last Name: </label>
+					<input class = "form-control col-sm-8" id = "lastname" name="lastname" required/ placeholder="Enter Last Name">
+					</div>  
+
+
+					<div class="form-group row">
+      				<label class="control-label col-sm-4 text-left" for="email">Email:</label>
+					<input class = "form-control col-sm-8" type = "email" id = "email" placeholder = "Enter email" name = "email">
+					</div>
+					
+					<div class = "form-group row">
+					<label class = "control-label col-sm-4 text-left" for = "phonenum">Phone Number:</label>
+					<input class = "form-control col-sm-8" name="phonenum" required/ placeholder="###-###-####">
+					</div>
+
+					<div class = "form-group row">
+					<label class = "control-label col-sm-4 text-left" for = "password">Password:</label>
+					<input class = "form-control col-sm-8" name="password" type= "password" required minlength = "8"/ placeholder="Enter Password">
+					</div>
+					
+					 <div class="form-group">        
+      					<div class="col-sm-offset-2 col-sm-10">
+        				<div class="checkbox">
+         				 <label><input type="checkbox" name="remember"> Remember me</label>
+       				 </div>
+     				 </div>
+     				 </div>
+					
+					<p>
+					<button>Sign Up</button>
+					</p>
+					
+					
+				</form>
+			</div>
+	</body>
+
 </html>
