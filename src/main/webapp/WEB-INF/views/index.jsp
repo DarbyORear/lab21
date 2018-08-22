@@ -12,9 +12,32 @@
 <body>
 	<div class = "div">
 	<h1>Welcome to the Java Bean!</h1>
+		<p id = "attentiongrab"> Get gourmet coffee delivered straight to your door </p>
 	<img id = "coffee" src = "/images/coffeecupimage.jpg"/>
-	<p id = "attentiongrab"> Create an account to get gourmet coffee delivered straight to your door </p>
-	<p><button> <a href = "/register">Create Account</a></button></p>
 	</div>
+	
+		<div class="container">
+		<h3>Coffee Shop Options</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th><th>Description</th><th>Quantity</th><th>Price</th>
+				</tr>
+			</thead>
+			<tbody>
+	<!-- The forEach loops through all the items and prints them out -->
+				<c:forEach var="myitem" items="${items}">
+				<tr>
+					<td><a href="/index/${myitem.id}">${myitem.name}</a></td>
+					<td>${myitem.description}</td>
+					<td>${myitem.quantity}</td>
+					<td>${myitem.price}</td>
+				</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<p>Want to purchase an item? Click the button below to sign up!</p>
+	</div>
+	<button><a href = "/register">Create Account</a></button>
 </body>
 </html>

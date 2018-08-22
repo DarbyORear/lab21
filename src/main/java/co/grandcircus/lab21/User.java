@@ -2,7 +2,7 @@ package co.grandcircus.lab21;
 
 public class User {
 
-		private String id;
+		private int id;
 		private String firstname;
 		private String lastname;
 		private String email;
@@ -26,11 +26,11 @@ public class User {
 					+ phonenum + ", password=" + password + "]";
 		}
 
-		public String getId() {
+		public int getId() {
 			return id;
 		}
 
-		public void setId(String id) {
+		public void setId(int id) {
 			this.id = id;
 		}
 

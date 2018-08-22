@@ -18,18 +18,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="item" items="${items}">
+				<c:forEach var="items" items="${items}">
 				<tr>
-					<td><a href="/items/${item.id}">${item.name}</a></td>
-					<td>${item.description}</td>
-					<td>${item.quantity}</td>
-					<td>${item.price}</td>
+					<td><a href="/items/${items.id}">${items.name}</a></td>
+					<td>${items.description}</td>
+					<td>${items.quantity}</td>
+					<td>${items.price}</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<p>Want to purchase an item? Click the button below to register!</p>
 	</div>
-	<button><a href = "/registration">Add A Room</a></button>
+	<button><a href = "/register">Register</a></button>
 </body>
 </html>
