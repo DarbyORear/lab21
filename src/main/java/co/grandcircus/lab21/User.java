@@ -2,6 +2,7 @@ package co.grandcircus.lab21;
 
 public class User {
 
+		private String id;
 		private String firstname;
 		private String lastname;
 		private String email;
@@ -10,7 +11,7 @@ public class User {
 		
 		public User() {}
 		
-		public User(String firstname, String lastname, String email, String phonenum, String password) {
+		public User(int id, String firstname, String lastname, String email, String phonenum, String password) {
 			this.firstname = firstname;
 			this.lastname = lastname;
 			this.email = email;
@@ -21,8 +22,16 @@ public class User {
 
 		@Override
 		public String toString() {
-			return "User [firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", phonenum="
+			return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", phonenum="
 					+ phonenum + ", password=" + password + "]";
+		}
+
+		public String getId() {
+			return id;
+		}
+
+		public void setId(String id) {
+			this.id = id;
 		}
 
 		public String getFirstname() {
