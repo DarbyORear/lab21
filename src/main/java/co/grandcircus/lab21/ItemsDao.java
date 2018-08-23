@@ -3,10 +3,11 @@ package co.grandcircus.lab21;
 
 	import java.util.List;
 
-	import org.springframework.beans.factory.annotation.Autowired;
-	import org.springframework.jdbc.core.BeanPropertyRowMapper;
-	import org.springframework.jdbc.core.JdbcTemplate;
-	import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 //	import co.grandcircus.jdbcintro.entity.Room;
 
@@ -18,6 +19,7 @@ package co.grandcircus.lab21;
 	// (a.k.a Spring Bean) that can be autowired and that it should be treated like
 	// a DAO (which mostly applies to error handling behind the scenes).
 	@Repository
+	@Transactional
 	public class ItemsDao {		
 		// Spring will automatically inject this dependency thanks to @Autowired
 		@Autowired

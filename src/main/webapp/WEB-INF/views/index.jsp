@@ -26,7 +26,9 @@
 			</thead>
 			<tbody>
 	<!-- The forEach loops through all the items and prints them out -->
+	<!-- Where do the {items} come from? the controller. -->
 				<c:forEach var="myitem" items="${items}">
+					
 				<tr>
 					<td><a href="/index/${myitem.id}">${myitem.name}</a></td>
 					<td>${myitem.description}</td>
@@ -36,7 +38,9 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<p>Want to purchase an item? Click the button below to sign up!</p>
+		<button><a href ="/add-item">Add Item</button>
+		
+		<p>Click the button below to sign up!</p>
 	</div>
 	<button><a href = "/register">Create Account</a></button>
 </body>

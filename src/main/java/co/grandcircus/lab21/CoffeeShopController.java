@@ -4,18 +4,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 public class CoffeeShopController {
 	
 	@Autowired
-	private ItemsDao itemsDao;
+	private ItemsDaoHibernate itemsDao;
 	
 	@Autowired
-	private UserDao userDao;
+	private UserDaoHibernate userDao;
 	
 	
 	@RequestMapping("/")  //url path
@@ -66,6 +69,25 @@ public class CoffeeShopController {
 		return mav;
 	}
 	
+	@RequestMapping("/item/{id}/delete")
+	public ModelAndView delete(@PathVariable("id") Integer id) {
+		itemsDao.delete(id);
+		return new ModelAndView("redirect:/");
+	}
+	
+	@RequestMapping("/item/create")
+	public ModelAndView showCreateForm() {
+		// If there is only one model value to add, use this one-line shortcut. Equivalent to
+		// ModelAndView mav = new ModelAndView("food-form");
+		// mav.addObject("title", "Add a Food");
+		return new ModelAndView("index", "items", "items");
+	}
+	
+	@RequestMapping(value="/food/create", method=RequestMethod.POST)
+	public ModelAndView submitCreateForm(Items item) {
+		itemsDao.create(item);
+		return new ModelAndView("redirect:/");
+	}
 	
 //	@RequestMapping("/items") //url path
 //	public ModelAndView showItems() {
