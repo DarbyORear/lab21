@@ -19,7 +19,6 @@ package co.grandcircus.lab21;
 
 		public List<Items> findAll(){
 			return em.createQuery("FROM Items", Items.class).getResultList();
-
 		}
 		
 		public Items findById(Integer id) {
@@ -39,7 +38,7 @@ package co.grandcircus.lab21;
 		public void delete(Integer id) {
 			Items item = em.getReference(Items.class, id);
 			em.remove(item);
-			System.out.println("Are you sure you want to delet this item?");
+			System.out.println("Are you sure you want to delete this item?");
 		}
 
 	}

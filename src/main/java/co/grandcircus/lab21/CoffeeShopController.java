@@ -69,41 +69,44 @@ public class CoffeeShopController {
 		return mav;
 	}
 	
-	@RequestMapping("/item/{id}/delete")
-	public ModelAndView delete(@PathVariable("id") Integer id) {
-		itemsDao.delete(id);
-		return new ModelAndView("redirect:/");
-	}
-	
-	@RequestMapping("/item/create")
-	public ModelAndView showCreateForm() {
-		// If there is only one model value to add, use this one-line shortcut. Equivalent to
-		// ModelAndView mav = new ModelAndView("food-form");
-		// mav.addObject("title", "Add a Food");
-		return new ModelAndView("index", "items", "items");
-	}
-	
-	@RequestMapping(value="/food/create", method=RequestMethod.POST)
-	public ModelAndView submitCreateForm(Items item) {
-		itemsDao.create(item);
-		return new ModelAndView("redirect:/");
-	}
-	
-//	@RequestMapping("/items") //url path
-//	public ModelAndView showItems() {
-//		ModelAndView mav = new ModelAndView("practiceform");  //.jsp file
-//		return mav;
+//	@RequestMapping("/item/{id}/delete")
+//	public ModelAndView delete(@RequestParam("id") Integer id) {
+//		itemsDao.delete(id);
+//		return new ModelAndView("redirect:/");
 //	}
-//	
 	
-//	@RequestMapping("submit-user-registration")
-//	public ModelAndView submitForm(
-//			@RequestParam("firstname") String firstname,
-//			@RequestParam("lastname") String firstname,
-//			@RequestParam("firstname") String firstname,
+	
+	@RequestMapping("/add-item")
+	public ModelAndView showAddItemForm() {
+		return new ModelAndView("addItem"); //jsp file (in the jsp file, tell it the next place you want it to go is the submit-form method in the controller???
+	}
+	
+	@RequestMapping("/submit-item") //WHAT GOES HERE?
+	public ModelAndView submitCreateForm(
+		
+		@RequestParam("name")String name, //"firstname" = part of requestparam annotation, name = regular java parameter
+		@RequestParam("description")String description,
+		@RequestParam("quantity") int quantity,
+		@RequestParam("price") float price)
+{
+	
+	//construct an item object from the url params
+	Items newItem = new Items();
+	newItem.setName(name);  //matches String in Requestparam
+	newItem.setDescription(description); //matches String in Requestparam
+	newItem.setQuantity(quantity); //matches String in Requestparam
+	newItem.setPrice(price);
+	
+	itemsDao.create(newItem);
+	ModelAndView mav = new ModelAndView("redirect:/");
+	mav.addObject("newItem", newItem);
+	return mav;
 
+	}
+	
+
+//}
 }
-
 
 
 
