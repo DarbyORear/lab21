@@ -69,19 +69,25 @@ public class CoffeeShopController {
 		return mav;
 	}
 	
-//	@RequestMapping("/item/{id}/delete")
-//	public ModelAndView delete(@RequestParam("id") Integer id) {
-//		itemsDao.delete(id);
-//		return new ModelAndView("redirect:/");
-//	}
+	@RequestMapping("/items-admin") //CHANGE?? /items-admin or itemsAdmin?
+	public ModelAndView showItemAdmin() {
+	List<Items> items = itemsDao.findAll();
+	return new ModelAndView("ItemAdmin", "items", items); //WHAT GOES HERE?
+	}
+	
+	@RequestMapping("/item/{id}/delete")
+	public ModelAndView delete(@PathVariable("id") int id) {
+		itemsDao.delete(id);
+		return new ModelAndView("redirect:/");
+	}
 	
 	
 	@RequestMapping("/add-item")
-	public ModelAndView showAddItemForm() {
-		return new ModelAndView("addItem"); //jsp file (in the jsp file, tell it the next place you want it to go is the submit-form method in the controller???
+	public ModelAndView showAddItemForm() {			//CHANGE MADE: ADDED 2 EXTRA THINGS IN (), what goes there??
+		return new ModelAndView("addItem", "name", "add Item"); //jsp file (in the jsp file, tell it the next place you want it to go is the submit-form method in the controller???
 	}
 	
-	@RequestMapping("/submit-item") //WHAT GOES HERE?
+	@RequestMapping("/submit-item")
 	public ModelAndView submitCreateForm(
 		
 		@RequestParam("name")String name, //"firstname" = part of requestparam annotation, name = regular java parameter
@@ -91,8 +97,10 @@ public class CoffeeShopController {
 {
 	
 	//construct an item object from the url params
+
 	Items newItem = new Items();
-	newItem.setName(name);  //matches String in Requestparam
+//	newItem.setId(id);
+	newItem.setName(name); //matches String in Requestparam
 	newItem.setDescription(description); //matches String in Requestparam
 	newItem.setQuantity(quantity); //matches String in Requestparam
 	newItem.setPrice(price);
@@ -103,12 +111,21 @@ public class CoffeeShopController {
 	return mav;
 
 	}
-	
+	//OR
+//	@RequestMapping 
+	//EDIT AN ITEM
+	//note: this is different from adding an item because it needs to correspond to each specific row. Delete item needs to do the same thing.
 
-//}
+	//NOTE: FOR DELETE/EDIT, DO I HAVE TO REDIRECT TO SUBMIT/FORM???
+	
+	@RequestMapping(value="/item/{id}/update", method=RequestMethod.POST)
+	public ModelAndView submitEditForm(Items item, @PathVariable("id") int id) {
+		item.setId(id);
+		itemsDao.update(item);
+		return new ModelAndView("redirect:/");
 }
 
-
+}
 
 
 

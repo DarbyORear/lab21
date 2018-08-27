@@ -34,13 +34,14 @@
 					<td>${myitem.description}</td>
 					<td>${myitem.quantity}</td>
 					<td>${myitem.price}</td>
+					<td><a href ="/item/${myitem.id}/delete">Delete Item</a></td>
+					<td><a href ="/item/${myitem.id}/update">Edit Item</a></td>
 				</tr>
+
 				</c:forEach>
 			</tbody>
 		</table>
-		<button><a href ="/add-item">Add Item</button>
-		
-		<!--  <button><a href ="/item/${items.id}/delete">Delete Item</button> ...this might need to say something like /item/id?delete=" or i don't know what -->
+		<button><a href ="/add-item">Add Item</a></button>
 		
 		<p>Click the button below to sign up!</p>
 	</div>

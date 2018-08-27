@@ -5,14 +5,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Add Item</title>
+<title>Edit Item in Inventory</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel = "stylesheet" href = "/style.css">
 </head>
 
 	<body>
 	<div class = "container">
-				<h2 id = "addItem"> Please add an item.</h2>
+				<h2 id = "addItem"> Choose an item and update.</h2>
 				
 				<form class = "form-horizontal" action="/submit-item" method = "post">
 			

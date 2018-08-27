@@ -21,10 +21,15 @@ package co.grandcircus.lab21;
 			return em.createQuery("FROM Items", Items.class).getResultList();
 		}
 		
-		public Items findById(Integer id) {
+		public Items findById(int id) {
 			return em.find(Items.class, id);
 		}
 		
+//		public List<Items> findById(int id) {
+//			// HQL queries can have named parameters, such as :regex here.
+//			return em.createQuery("FROM Items", Items.class)
+//					.getResultList();
+//		}
 		
 		public void create(Items item) {
 			em.persist(item);
@@ -35,11 +40,12 @@ package co.grandcircus.lab21;
 			em.merge(item);
 		}
 		
-		public void delete(Integer id) {
+		public void delete(int id) {
 			Items item = em.getReference(Items.class, id);
 			em.remove(item);
 			System.out.println("Are you sure you want to delete this item?");
 		}
+		
 
 	}
 

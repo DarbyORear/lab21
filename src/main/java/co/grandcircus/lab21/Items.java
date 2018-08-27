@@ -4,6 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+//import javax.persistence.NamedQuery;
+
+//@NamedQuery(
+//		name="Items.findAllCategories",
+//		query="SELECT DISTINCT category FROM Items") //CHANGE MADE: ADDED NAMED QUERY.
 
 @Entity
 public class Items {
@@ -13,10 +18,13 @@ public class Items {
 	private String description;
 	private int quantity;
 	private float price;
-	
+
+
 	public Items() {}
 	
 	public Items(int id, String name, String description, int quantity, float price) {
+		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.quantity = quantity;
