@@ -8,9 +8,59 @@ h1 {
 	color: #400000;
 }
 
+h3{
+	color: #400000;
+}
+
+#indexpg {
+	margin-top: 20px;
+	margin-bottom: 80px;
+}
+
 #attentiongrab {
 	color: white;
 	font-size: 30px;
+}
+
+#table-headers {
+	background-color: #400000;
+	color: white;
+}
+
+#table-body {
+	color: white;
+	text-align: left;
+}
+
+#click-text {
+	color: white;
+	padding-top: 20px;
+}
+
+#create-account {
+	margin-bottom: 20px;
+}
+
+#btn-login1{
+	background-color: #400000;
+	/*width: 60px;
+	height: 35px;*/
+}
+
+#btn-login2{
+	background-color: #400000;
+	/*width: 60px;
+	height: 35px;*/
+}
+
+#btn-login3{
+	background-color: #400000;
+	/*width: 60px;
+	height: 35px;*/
+}
+
+#admin-login-text{
+	font-size: 20px;
 }
 
 a{
@@ -43,6 +93,17 @@ label {
 #registration-heading {
 	color: #400000;
 }
+
+
+.intro-stuff {
+	text-align: center;
+}
+
+.login-buttons {
+	text-align: center;
+	
+}
+
 
 
 

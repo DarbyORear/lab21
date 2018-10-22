@@ -24,15 +24,11 @@ public class CoffeeShopController {
 	@RequestMapping("/")  //url path
 	public ModelAndView showIndexPage() {
 		List<Items>items = itemsDao.findAll();
-		return new ModelAndView("index", "items", items);
-			//"index" = view, points to index.jsp; "items"= model, points to list of items (map of key: value pairs), items=variable
-			//
+//		return new ModelAndView("index", "items", items);
+		ModelAndView mav = new ModelAndView("index");
+		mav.addObject("items", items);
+		return mav;
 	}
-	
-	//the above line (24) can also be written like this:
-//	ModelAndView mav = new MOdelAndView("index");
-//	mav.addObject("items", items);
-//	return mav;
 	
 	@RequestMapping("/register")  //url path
 	public ModelAndView showRegistrationPage() {
@@ -65,15 +61,33 @@ public class CoffeeShopController {
 	
 	@RequestMapping("/practiceform") //url path
 	public ModelAndView showPracticePage() {
-		ModelAndView mav = new ModelAndView("practiceform");  //.jsp file
+		List<Items>items = itemsDao.findAll();
+//		return new ModelAndView("index", "items", items);
+		ModelAndView mav = new ModelAndView("practiceform");
+		mav.addObject("items", items);
 		return mav;
+	}
+	
+	@RequestMapping("/admin-login")
+	public ModelAndView adminLogin() {
+	ModelAndView mav = new ModelAndView("adminLogin");
+	return mav;
+	}
+	
+	@RequestMapping("/user-login")
+	public ModelAndView userLogin() {
+	ModelAndView mav = new ModelAndView("userLogin");
+	return mav;
 	}
 	
 	@RequestMapping("/items-admin") //CHANGE?? /items-admin or itemsAdmin?
 	public ModelAndView showItemAdmin() {
 	List<Items> items = itemsDao.findAll();
-	return new ModelAndView("ItemAdmin", "items", items); //WHAT GOES HERE?
+	return new ModelAndView("itemsAdmin", "items", items); //WHAT GOES HERE?
 	}
+	
+//	@RequestMapping("/user-login")
+	
 	
 	@RequestMapping("/item/{id}/delete")
 	public ModelAndView delete(@PathVariable("id") int id) {
@@ -99,7 +113,6 @@ public class CoffeeShopController {
 	//construct an item object from the url params
 
 	Items newItem = new Items();
-//	newItem.setId(id);
 	newItem.setName(name); //matches String in Requestparam
 	newItem.setDescription(description); //matches String in Requestparam
 	newItem.setQuantity(quantity); //matches String in Requestparam
@@ -111,39 +124,22 @@ public class CoffeeShopController {
 	return mav;
 
 	}
+	
 	//OR
 //	@RequestMapping 
 	//EDIT AN ITEM
-	//note: this is different from adding an item because it needs to correspond to each specific row. Delete item needs to do the same thing.
-
-	//NOTE: FOR DELETE/EDIT, DO I HAVE TO REDIRECT TO SUBMIT/FORM???
 	
 	@RequestMapping(value="/item/{id}/update", method=RequestMethod.POST)
 	public ModelAndView submitEditForm(Items item, @PathVariable("id") int id) {
-		item.setId(id);
-		itemsDao.update(item);
-		return new ModelAndView("redirect:/");
+//		item.setId(id);
+//		itemsDao.update(item);
+		itemsDao.update(id);
+		return new ModelAndView("redirect:/edit-item");
+}
+	
+	@RequestMapping(value="/edit-item", method=RequestMethod.POST)
+	public ModelAndView viewEditForm() {
+		return new ModelAndView("redirect:/editItem");
 }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

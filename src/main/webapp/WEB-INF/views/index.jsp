@@ -8,28 +8,29 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CoffeeShop</title>
 <link rel = "stylesheet" href = "/style.css">
+<link rel = "stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
 </head>
 <body>
-	<div class = "div">
+	<div class = "container" id = "indexpg">
+	<div class = "intro-stuff">
 	<h1>Welcome to the Java Bean!</h1>
 		<p id = "attentiongrab"> Get gourmet coffee delivered straight to your door </p>
 	<img id = "coffee" src = "/images/coffeecupimage.jpg"/>
 	</div>
 	
 		<div class="container">
-		<h3>Coffee Shop Options</h3>
-		<table class="table">
+		<p></p>
+		<h3>Menu</h3>
+		<table class="table table-bordered table-hover">
 			<thead>
-				<tr>
-					<th>Name</th><th>Description</th><th>Quantity</th><th>Price</th>
+				<tr id = "table-headers">
+					<th>Name</th><th>Description</th><th>Price</th>
 				</tr>
 			</thead>
-			<tbody>
-	<!-- The forEach loops through all the items and prints them out -->
-	<!-- Where do the {items} come from? the controller. -->
+			<tbody id = "table-body">
 				<c:forEach var="myitem" items="${items}">
 					
-				<tr>
+			<!--  	<tr>
 					<td><a href="/index/${myitem.id}">${myitem.name}</a></td>
 					<td>${myitem.description}</td>
 					<td>${myitem.quantity}</td>
@@ -37,14 +38,28 @@
 					<td><a href ="/item/${myitem.id}/delete">Delete Item</a></td>
 					<td><a href ="/item/${myitem.id}/update">Edit Item</a></td>
 				</tr>
+			-->
+			
+			<tr>
+					<td>${myitem.name}</td>
+					<td>${myitem.description}</td>
+					<td>$${myitem.price}0</td>
+				</tr>
 
 				</c:forEach>
 			</tbody>
 		</table>
-		<button><a href ="/add-item">Add Item</a></button>
-		
-		<p>Click the button below to sign up!</p>
+	<div class = "login-buttons" class = "text-center">
+			<a href = "/user-login" class = "btn btn-tertiary" id = "btn-login1">Login</a>
+			<a href = "/admin-login" class = "btn btn-tertiary" id = "btn-login2">Admin Login</a>
+		<div id = "click-text">
+		<p>Don't have an account yet?<br/>
+		Click the button below to sign up!</p>
+		</div>
+	
+				<a href = "/register" class = "btn btn-tertiary" id = "btn-login3">Create Account</a>
+			</div>
 	</div>
-	<button><a href = "/register">Create Account</a></button>
+</div>
 </body>
 </html>

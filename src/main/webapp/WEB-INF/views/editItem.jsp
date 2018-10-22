@@ -12,7 +12,7 @@
 
 	<body>
 	<div class = "container">
-				<h2 id = "addItem"> Choose an item and update.</h2>
+				<h2 id = "editItem"> Choose an item and update.</h2>
 				
 				<form class = "form-horizontal" action="/submit-item" method = "post">
 			

@@ -36,7 +36,8 @@ package co.grandcircus.lab21;
 
 		}
 		
-		public void update(Items item) {
+		public void update(int id){
+			Items item = em.getReference(Items.class, id);
 			em.merge(item);
 		}
 		
