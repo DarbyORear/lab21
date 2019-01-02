@@ -9,7 +9,8 @@
 	<link rel = "stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
 </head>
 <body>
-<form action = "/practiceform" class = "form-horizontal">
+<h3>Please enter your username and password to continue.</h3>
+<form action = "/user-verify" class = "form-horizontal">
 
 		<div class = "form-group row">
 					<label id = "nameid" class = "control-label col-sm-4 text-left" for = "username">Username:</label> 
@@ -18,7 +19,7 @@
 					
 					<div class = "form-group row">
 					<label class = "control-label col-sm-4 text-left" for = "password">Password: </label>
-					<input class = "form-control col-sm-8" id = "password" name="password" required minlength = "5" placeholder="Enter Password">
+					<input class = "form-control col-sm-8" id = "password" name="password" placeholder="Enter Password">
 					</div>  
 <button class = "btn btn-tertiary" id = "btn-login2">Login</button>
 </form>

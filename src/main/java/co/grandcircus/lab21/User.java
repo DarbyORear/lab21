@@ -1,21 +1,35 @@
 package co.grandcircus.lab21;
 
-public class User {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-		private int id;
+@Entity
+@Table (name = "users")
+public class User {
+@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+		private Long id;
 		private String firstname;
 		private String lastname;
 		private String email;
 		private String phonenum;
+		private String username;
 		private String password;
 		
-		public User() {}
+		public User() {
+			super();
+		}
 		
-		public User(int id, String firstname, String lastname, String email, String phonenum, String password) {
+		public User(Long id, String firstname, String lastname, String email, String phonenum, String password, String username) {
+			super();
+			this.id = id;
 			this.firstname = firstname;
 			this.lastname = lastname;
 			this.email = email;
 			this.phonenum = phonenum;
+			this.username = username;
 			this.password = password;
 			
 		}
@@ -23,14 +37,22 @@ public class User {
 		@Override
 		public String toString() {
 			return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", phonenum="
-					+ phonenum + ", password=" + password + "]";
+					+ phonenum + ", username=" + username + ", password=" + password + "]";
 		}
 
-		public int getId() {
+		public Long getId() {
 			return id;
 		}
 
-		public void setId(int id) {
+		public String getUsername() {
+			return username;
+		}
+
+		public void setUsername(String username) {
+			this.username = username;
+		}
+
+		public void setId(Long id) {
 			this.id = id;
 		}
 

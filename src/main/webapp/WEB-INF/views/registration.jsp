@@ -15,7 +15,7 @@
 	<div class = "container">
 				<h2 id = "registration-heading"> Please fill out the form to register.</h2>
 				
-				<form class = "form-horizontal" action="/practiceform" method = "post">
+				<form class = "form-horizontal" action="/create-new-user" method = "post">
 				
 					<div class = "form-group row">
 					<label id = "nameid" class = "control-label col-sm-4 text-left" for = "firstname">First Name:</label> 
@@ -24,7 +24,7 @@
 					
 					<div class = "form-group row">
 					<label class = "control-label col-sm-4 text-left" for = "lastname">Last Name: </label>
-					<input class = "form-control col-sm-8" id = "lastname" name="lastname" required/ placeholder="Enter Last Name">
+					<input class = "form-control col-sm-8" id = "lastname" name="lastname" placeholder="Enter Last Name">
 					</div>  
 
 
@@ -35,12 +35,17 @@
 					
 					<div class = "form-group row">
 					<label class = "control-label col-sm-4 text-left" for = "phonenum">Phone Number:</label>
-					<input class = "form-control col-sm-8" name="phonenum" required/ placeholder="###-###-####">
+					<input class = "form-control col-sm-8" name="phonenum" placeholder="###-###-####">
 					</div>
-
+					
+					<div class = "form-group row">
+					<label class = "control-label col-sm-4 text-left" for = "password">Username:</label>
+					<input class = "form-control col-sm-8" name="username" type= "username" minlength = "2" placeholder="Enter Username">
+					</div>
+					
 					<div class = "form-group row">
 					<label class = "control-label col-sm-4 text-left" for = "password">Password:</label>
-					<input class = "form-control col-sm-8" name="password" type= "password" required minlength = "8"/ placeholder="Enter Password">
+					<input class = "form-control col-sm-8" name="password" type= "password" minlength = "2" placeholder="Enter Password">
 					</div>
 					
 					 <div class="form-group">        

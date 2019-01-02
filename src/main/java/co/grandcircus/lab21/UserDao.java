@@ -38,16 +38,18 @@ package co.grandcircus.lab21;
 			return match;
 		}
 		
+		//NOTE: ADDED getUsername() and getPassword() to update and create methods on 11/1/18.
+		
 		public void update(User newUser) {
 			String sql = "UPDATE Room SET name = ?, capacity = ?, available = ? WHERE id = ?";
 			// Use .update for SQL INSERT, UPDATE, and DELETE
 			// All the parameters after the first specify values to fill in the ?s in the SQL.
-			jdbcTemplate.update(sql, newUser.getFirstname(), newUser.getLastname(), newUser.getEmail(), newUser.getId());
+			jdbcTemplate.update(sql, newUser.getFirstname(), newUser.getLastname(), newUser.getEmail(), newUser.getUsername(), newUser.getPassword(), newUser.getId());
 		}
 		
 		public void create(User newUser) {
 			String sql = "INSERT INTO Room (name, capacity, available) VALUES (?, ?, ?)";
-			jdbcTemplate.update(sql, newUser.getFirstname(), newUser.getLastname(), newUser.getEmail(), newUser.getId());
+			jdbcTemplate.update(sql, newUser.getFirstname(), newUser.getLastname(), newUser.getEmail(), newUser.getUsername(), newUser.getPassword(), newUser.getId());
 		}
 		
 		public void delete(Long id) {

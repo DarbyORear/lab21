@@ -9,6 +9,7 @@
 <link rel = "stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
 </head>
 <body>
+<h3>Please enter your username and password to continue.</h3>
 <form action = "/items-admin" class = "form-horizontal">
 
 		<div class = "form-group row">
