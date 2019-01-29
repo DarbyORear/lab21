@@ -6,12 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>CoffeeShop</title>
-<link rel = "stylesheet" href = "/style.css">
+<title>CoffeeShop: Home</title>
 <link rel = "stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
+<link rel = "stylesheet" href = "/style.css">
+
+
 </head>
 <body>
 	<div class = "container" id = "indexpg">
+	<h5>Please note that this website is for demonstration purposes only and is not a functioning e-commerce site.</h5>
 	<div class = "intro-stuff">
 	<h1>Welcome to the Java Bean!</h1>
 		<p id = "attentiongrab"> Get gourmet coffee delivered straight to your door </p>

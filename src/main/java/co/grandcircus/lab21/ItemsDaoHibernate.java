@@ -36,8 +36,9 @@ package co.grandcircus.lab21;
 
 		}
 		
-		public void update(int id){
-			Items item = em.getReference(Items.class, id);
+		
+		//note (1/29/29): THIS should be the right way to update an item
+		public void update(Items item){
 			em.merge(item);
 		}
 		
@@ -46,6 +47,15 @@ package co.grandcircus.lab21;
 			em.remove(item);
 			System.out.println("Are you sure you want to delete this item?");
 		}
+		
+		//DO I NEED TO ADD A METHOD HERE TO ADD A SPECIFIC ITEM TO THE CART? (1/28/19)
+		//maybe this method needs to be in cartDao not itemsDao
+//		public void addToCart(int id) {
+//			Items item = em.find(Items.class, id);
+//			//add that Item to cart
+//			
+//
+//		}
 		
 
 	}

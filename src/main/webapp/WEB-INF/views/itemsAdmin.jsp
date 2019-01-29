@@ -36,7 +36,9 @@
 					<td>${myitem.quantity}</td>
 					<td>$${myitem.price}0</td>
 					<td><a href ="/item/${myitem.id}/delete">Delete Item</a></td>
-					<td><a href ="/item/${myitem.id}/update">Edit Item</a></td>
+				<!-- <td><a href ="/item/${myitem.id}/update">Edit Item</a></td> -->
+					<td><a href ="/edit-item/${myitem.id}">Edit Item</a></td>
+					
 				</tr>
 		
 			

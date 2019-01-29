@@ -24,6 +24,9 @@ public class CoffeeShopController {
 	@Autowired
 	private UserDaoHibernate userDao;
 	
+	@Autowired
+	private CartDao cartDao;
+	
 	
 	@RequestMapping("/")  //url path
 	public ModelAndView showIndexPage() {
@@ -52,7 +55,7 @@ public class CoffeeShopController {
 			HttpSession session)
 	{
 		
-		//construct a user from the url params
+		//2. construct a user from the url params
 		User newUser = new User();
 		newUser.setFirstname(name);  //matches String in Requestparam
 		newUser.setLastname(lastname); //matches String in Requestparam
@@ -79,7 +82,7 @@ public class CoffeeShopController {
 		session.setAttribute("newUser", newUser);
 		
 		
-		//4. add new user to mav
+		//5. add new user to mav
 		ModelAndView mav = new ModelAndView("redirect:/new-user-view");
 		mav.addObject("newUser", newUser);
 		return mav;	
@@ -102,7 +105,7 @@ public ModelAndView newUserView(HttpSession session) {
 	return mav;
 	}
 	
-	//FIXME: "specificmessage" doesn't show. figure out where/how I need to define specificmessage.
+//	: "specificmessage" doesn't show. figure out where/how I need to define specificmessage.
 	@RequestMapping("/user-verify")
 	private ModelAndView checkLoginInfo(@RequestParam("username") String username,
 			@RequestParam("password") String password, HttpSession session, RedirectAttributes redir) {
@@ -141,7 +144,6 @@ public ModelAndView newUserView(HttpSession session) {
 	}
 	
 	
-	
 	@RequestMapping("/admin-login")
 	public ModelAndView adminLogin() {
 	ModelAndView mav = new ModelAndView("adminLogin");
@@ -162,7 +164,14 @@ public ModelAndView newUserView(HttpSession session) {
 		return new ModelAndView("redirect:/");
 	}
 	
+	//this one needs to delete it from their cart, not from the items table
+	@RequestMapping("/cart-item/{id}/delete")//DON'T WANT TO DELETE FROM ITEMS
+	public ModelAndView deleteFromCart(@PathVariable("id") int id) {
+		itemsDao.delete(id); //cartDao.delete(id);
+		return new ModelAndView("redirect:/cart");
+	}
 	
+	//This add-item is for admin use: adding a new item to the menu
 	@RequestMapping("/add-item")
 	public ModelAndView showAddItemForm() {			
 		return new ModelAndView("addItem", "name", "add Item");
@@ -191,30 +200,85 @@ public ModelAndView newUserView(HttpSession session) {
 	return mav;
 
 	}
-	
-	
-	@RequestMapping(value="/item/{id}/update", method=RequestMethod.POST)
-	public ModelAndView submitEditForm(Items item, @PathVariable("id") int id) {
-//		item.setId(id);
-//		itemsDao.update(item);
-		itemsDao.update(id);
-		return new ModelAndView("redirect:/edit-item");
-}
-	
-	@RequestMapping(value="/edit-item", method=RequestMethod.POST)
-	public ModelAndView viewEditForm() {
-		return new ModelAndView("redirect:/editItem");
-}
-	
-	
-	// cart/summary page
-	@RequestMapping("/cart") //url path
-	public ModelAndView showCart(Items cartItem, @PathVariable("id") int id) {
-		itemsDao.findById(id);
-//		return new ModelAndView("index", "items", items);
-		ModelAndView mav = new ModelAndView("userCart");
-		mav.addObject("cartItem", cartItem);
-		return mav;
-	}
-	}
 
+	@RequestMapping(value="/edit-item/{id}") //CHANGED POST TO GET 1/29/19
+	public ModelAndView viewEditForm( @PathVariable("id") int id) {
+		Items item = itemsDao.findById(id);
+		ModelAndView mav = new ModelAndView("editItem");
+		mav.addObject("item", item);
+//		return new ModelAndView("editItem");
+		return mav;
+}
+	
+
+//NOTE (1/29/19): This works!
+	@RequestMapping(value="/item/{id}/update", method=RequestMethod.POST)
+	public ModelAndView submitEditForm(@PathVariable("id") int id, Items item) {
+		itemsDao.update(item); //this might be the problem. I don't want to update the id.
+		return new ModelAndView("redirect:/items-admin");
+}
+	
+	
+	
+////////////////////////////////////////////////////////////////////////////////////////////////
+	//Trying a different approach to the add-to-cart method.
+//@RequestMapping(value="/item/{id}/add-to-cart", method=RequestMethod.POST)
+//public ModelAndView addItemToCart(Items item, @PathVariable("id") int id) {
+//	itemsDao.findById(id);
+//}
+
+	
+	
+	
+	
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+	
+//NOTE (1/24/19): When each add item button is clicked, it needs to get the quantity and other row
+	//information, create an item, add that info to database, and needs to be connected somehow to the
+	//"checkout" button...
+	@RequestMapping("/add-to-cart") //url path
+	public ModelAndView addToCart(
+			HttpSession session,
+			RedirectAttributes redir) {
+	
+	//find the user from the session, get their username, and add that to the cart object
+		User cartOwner = (User) session.getAttribute("user1");
+//		User userName = userDao.findbyUsername(cartOwner.getUsername()); //??
+		session.setAttribute("user1", cartOwner);
+		
+	//get the current item by its id:
+//		Items currentItem = itemsDao.findById(currentItem.getId());
+//		List<Items> allItems = itemsDao.findAll(); //WHAT DAO METHOD DO I USE TO GET THE CURRENT ITEM?
+
+//		int i;
+//		for(i=0; i<allItems.size(); i--) {
+//			if(allItems[i] != )
+//		}
+		
+		
+	//create new cart item //IT DOESN'T LIKE THE WORD "NULL" FOR ID
+//		Cart cartItem = new Cart((Integer) null, currentItem.getId(), cartOwner.getUsername(), currentItem.getName(), currentItem.getQuantity(), currentItem.getPrice());
+		
+//		Cart cartItem = new Cart(1, 0, cartOwner.getUsername(), "coffee", 2, 2);
+		
+	//add new cart item to shoppingcart table and to session
+//		cartDao.create(cartItem);
+//		session.setAttribute("cartItem", cartItem);
+	
+	//redirect to a new user view with a new section added that shows current items in shopping cart
+//		Cart newCartItem = (Cart) session.getAttribute("cartItem");
+		List<Items>items = itemsDao.findAll();
+//		User user = (User) session.getAttribute("user1");
+		ModelAndView mav = new ModelAndView("userViewCurrentCart");
+		redir.addFlashAttribute("itemAddedMsg", "item successfully added");
+//		mav.addObject("newCartItem", newCartItem);
+		mav.addObject("items", items);
+//		mav.addObject("user1", user);
+		return mav;
+		
+		}
+
+
+
+}

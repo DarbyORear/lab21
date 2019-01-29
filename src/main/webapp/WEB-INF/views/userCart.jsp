@@ -18,7 +18,7 @@
   		<table class="table table-bordered table-hover">
 			<thead>
 				<tr id = "table-headers">
-					<th>Name</th><th>Description</th><th>Price Per Unit</th>
+					<th>Name</th><th>Price Per Unit</th><th>Quantity</th><th>Delete Item</th>
 				</tr>
 			</thead>
 			<tbody id = "table-body">
@@ -26,17 +26,22 @@
 			
 			<tr>
 					<td>${myitem.name}</td>
-					<td>${myitem.description}</td>
 					<td>$${myitem.price}0</td>
-					<td>
-					<form action ="/cart">
-					<button type = "submit">Add</button>
-					</form>
-					</td>
+					<td>${myitem.itemQuantity}</td>
+					<!--  
+					<td><form action = "/cart-item/{id}/delete">
+					<button>Delete</button>
+					</form></td> -->
+					<td><button>Delete</button></td>
+
 			</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		<p>Your total is this many dollars</p>
+		<form action = "/receipt">
+		<button>Purchase</button>
+		</form>
 </div>
 
 </body>

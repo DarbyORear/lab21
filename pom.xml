@@ -6,8 +6,9 @@
 	<groupId>co.grandcircus</groupId>
 	<artifactId>lab21</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<!-- changing from jar to war to deploy to AWS 
+	<packaging>war</packaging> -->
 	<packaging>jar</packaging>
-
 	<name>lab21</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -51,13 +52,11 @@
 	<dependency>
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-starter-data-jpa</artifactId>
-</dependency>
-	
+</dependency>  
 	<dependency>
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-starter-jdbc</artifactId>
 </dependency>
-	
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

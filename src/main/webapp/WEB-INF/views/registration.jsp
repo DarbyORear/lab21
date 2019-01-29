@@ -48,14 +48,6 @@
 					<input class = "form-control col-sm-8" name="password" type= "password" minlength = "2" placeholder="Enter Password">
 					</div>
 					
-					 <div class="form-group">        
-      					<div class="col-sm-offset-2 col-sm-10">
-        				<div class="checkbox">
-         				 <label><input type="checkbox" name="remember"> Remember me</label>
-       				 </div>
-     				 </div>
-     				 </div>
-					
 					<p>
 					<button>Sign Up</button>
 					</p>

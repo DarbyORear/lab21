@@ -12,9 +12,13 @@
 
 	<body>
 	<div class = "container">
-				<h2 id = "editItem"> Choose an item and update.</h2>
+				<h2 id = "editItem"> Update item: ${item.name}.</h2>
 				
-				<form class = "form-horizontal" action="/submit-item" method = "post">
+				<!-- Commenting out temporarily to figure out what the action needs to be 1/29/19 -->
+				<!--  <form class = "form-horizontal" action="/item/{id}/update" method = "post"> -->
+				
+				<form class = "form-horizontal" action="/item/${item.id}/update" method = "post">
+				
 			
 					<!--  <div class = "form-group row">
 					<label class = "control-label col-sm-4 text-left" for = "id">Item id:</label> 
@@ -23,37 +27,28 @@
 				
 					<div class = "form-group row">
 					<label class = "control-label col-sm-4 text-left" for = "name">Item name:</label> 
-					<input class = "form-control col-sm-8" name="name" required minlength = "2"/ placeholder="Enter Item Name">
+					<input class = "form-control col-sm-8" name="name" required minlength = "2" placeholder="${item.name}">
 					</div>
 					
 					<div class = "form-group row">
 					<label class = "control-label col-sm-4 text-left" for = "description">Description: </label>
-					<input class = "form-control col-sm-8" name="description" required/ placeholder="Enter description">
+					<input class = "form-control col-sm-8" name="description" placeholder="${item.description}">
 					</div>  
 
 
 					<div class="form-group row">
       				<label class="control-label col-sm-4 text-left" for="quantity">Quantity:</label>
-					<input class = "form-control col-sm-8" type = "number" name = "quantity">
+					<input class = "form-control col-sm-8" type = "number" name ="quantity" placeholder = "${item.quantity}">
 					</div>
 					
 					<div class = "form-group row">
 					<label class = "control-label col-sm-4 text-left" for = "price">Price:</label>
-					<input class = "form-control col-sm-8" type = "text" name="price" required/ placeholder="price">
+					<input class = "form-control col-sm-8" type = "text" name="price" placeholder="${item.price}">
 					</div>
 					
-					 <div class="form-group">
-      					<div class="col-sm-offset-2 col-sm-10">
-        				<div class="checkbox">
-         				 <label><input type="checkbox" name="remember"> Remember me</label>
-       				 </div>
-     				 </div>
-     				 </div>
-					
 					<p>
-					<button a href = "/submit-item">Add Item</button>
+					<button>Edit Item</button>
 					</p>
-					
 					
 				</form>
 			</div>

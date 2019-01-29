@@ -9,12 +9,13 @@
 	<link rel = "stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
 </head>
 <body>
-<h3>Please enter your username and password to continue.</h3>
+<div class = "container">
+<h3 id = "enterLogin">Please enter your username and password to continue.</h3>
 <form action = "/user-verify" class = "form-horizontal">
 
 		<div class = "form-group row">
 					<label id = "nameid" class = "control-label col-sm-4 text-left" for = "username">Username:</label> 
-					<input class = "form-control col-sm-8" id = "username" name="username" required minlength = "2" placeholder="Enter Username">
+					<input class = "form-control col-sm-8" id = "username" name="username" minlength = "2" placeholder="Enter Username">
 					</div>
 					
 					<div class = "form-group row">
@@ -23,6 +24,6 @@
 					</div>  
 <button class = "btn btn-tertiary" id = "btn-login2">Login</button>
 </form>
-
+</div>
 </body>
 </html>
