@@ -218,34 +218,39 @@ public ModelAndView newUserView(HttpSession session) {
 		return new ModelAndView("redirect:/items-admin");
 }
 	
+//NOTE (1/29/19): This works! BUT right now, it just shows the current item on the userViewCurrentCart
+	//jsp. It does not add anything to the cart table.
+	//Also, flash attribute still doesn't work.
+	@RequestMapping(value="/add-to-cart/{id}") 
+	public ModelAndView addToCart(@PathVariable("id") int id, HttpSession session, RedirectAttributes redir) {
+		Items item = itemsDao.findById(id);
+		
+		User cartOwner = (User) session.getAttribute("user1");
+		
+		ModelAndView mav = new ModelAndView("userViewCurrentCart");
+		mav.addObject("item", item);
+		mav.addObject("cartOwner", cartOwner);
+		redir.addFlashAttribute("itemAddedMsg", "item successfully added");
+		return mav;
+	}
 	
 	
-////////////////////////////////////////////////////////////////////////////////////////////////
-	//Trying a different approach to the add-to-cart method.
-//@RequestMapping(value="/item/{id}/add-to-cart", method=RequestMethod.POST)
-//public ModelAndView addItemToCart(Items item, @PathVariable("id") int id) {
-//	itemsDao.findById(id);
-//}
-
 	
 	
-	
-	
-////////////////////////////////////////////////////////////////////////////////////////////////
 
 	
 //NOTE (1/24/19): When each add item button is clicked, it needs to get the quantity and other row
 	//information, create an item, add that info to database, and needs to be connected somehow to the
 	//"checkout" button...
-	@RequestMapping("/add-to-cart") //url path
-	public ModelAndView addToCart(
-			HttpSession session,
-			RedirectAttributes redir) {
+//	@RequestMapping("/add-to-cart") //url path
+//	public ModelAndView addToCart(
+//			HttpSession session,
+//			RedirectAttributes redir) {
 	
 	//find the user from the session, get their username, and add that to the cart object
-		User cartOwner = (User) session.getAttribute("user1");
-//		User userName = userDao.findbyUsername(cartOwner.getUsername()); //??
-		session.setAttribute("user1", cartOwner);
+//		User cartOwner = (User) session.getAttribute("user1");
+////		User userName = userDao.findbyUsername(cartOwner.getUsername()); //??
+//		session.setAttribute("user1", cartOwner);
 		
 	//get the current item by its id:
 //		Items currentItem = itemsDao.findById(currentItem.getId());
@@ -268,16 +273,16 @@ public ModelAndView newUserView(HttpSession session) {
 	
 	//redirect to a new user view with a new section added that shows current items in shopping cart
 //		Cart newCartItem = (Cart) session.getAttribute("cartItem");
-		List<Items>items = itemsDao.findAll();
+//		List<Items>items = itemsDao.findAll();
 //		User user = (User) session.getAttribute("user1");
-		ModelAndView mav = new ModelAndView("userViewCurrentCart");
-		redir.addFlashAttribute("itemAddedMsg", "item successfully added");
-//		mav.addObject("newCartItem", newCartItem);
-		mav.addObject("items", items);
-//		mav.addObject("user1", user);
-		return mav;
+//		ModelAndView mav = new ModelAndView("userViewCurrentCart");
+//		redir.addFlashAttribute("itemAddedMsg", "item successfully added");
+////		mav.addObject("newCartItem", newCartItem);
+////		mav.addObject("items", items);
+////		mav.addObject("user1", user);
+//		return mav;
 		
-		}
+//		}
 
 
 

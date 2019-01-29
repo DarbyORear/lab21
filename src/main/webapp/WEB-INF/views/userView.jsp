@@ -28,17 +28,15 @@
 				</tr>
 			</thead>
 			<tbody id = "table-body">
-			<form action ="/add-to-cart">
 				<c:forEach var="myitem" items="${items}">
 			<tr>
 					<td>${myitem.name}</td>
 					<td>${myitem.description}</td>
 					<td>$${myitem.price}0</td>
 					<td><input type = "number" value = "${myitem.quantity}"></td>
-					<td><button type = "submit">Add Item</button></td>
+					<td><a href = "/add-to-cart/${myitem.id}">Add Item</a></td>
 				</tr>
 				</c:forEach>
-			</form>
 			</tbody>
 		</table>
 		<div class = "profileButtons">

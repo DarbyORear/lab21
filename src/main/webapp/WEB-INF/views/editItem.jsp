@@ -12,7 +12,7 @@
 
 	<body>
 	<div class = "container">
-				<h2 id = "editItem"> Update item: ${item.name}.</h2>
+				<h2 id = "editItem"> Update item: ${item.name}</h2>
 				
 				<!-- Commenting out temporarily to figure out what the action needs to be 1/29/19 -->
 				<!--  <form class = "form-horizontal" action="/item/{id}/update" method = "post"> -->
