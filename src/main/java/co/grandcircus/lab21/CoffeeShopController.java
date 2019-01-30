@@ -218,71 +218,47 @@ public ModelAndView newUserView(HttpSession session) {
 		return new ModelAndView("redirect:/items-admin");
 }
 	
-//NOTE (1/29/19): This works! BUT right now, it just shows the current item on the userViewCurrentCart
-	//jsp. It does not add anything to the cart table.
+//NOTE (1/30/19):
+	//The below section for adding items to cart mostly works. But I still need to
+	//put in the logic for only showing the cart items that belong to the user who is logged in.
+	//Right now, it shows everyone's items that have ever been added to the database.
 	//Also, flash attribute still doesn't work.
 	@RequestMapping(value="/add-to-cart/{id}") 
 	public ModelAndView addToCart(@PathVariable("id") int id, HttpSession session, RedirectAttributes redir) {
+		//find current item by id
 		Items item = itemsDao.findById(id);
 		
+		//get user from session
 		User cartOwner = (User) session.getAttribute("user1");
 		
+		//create a new cart item and add it to the database
+//THIS WORKS!
+		//2. construct a new cart item
+		Cart cartItem = new Cart();
+//		cartItem.setId(null);
+		cartItem.setItemId(item.getId());
+		cartItem.setUserName(cartOwner.getUsername());
+		cartItem.setItemName(item.getName());
+		cartItem.setItemQuantity(item.getQuantity()); //THIS NEEDS TO CHANGE TO VALUE OF INPUT
+		cartItem.setUnitPrice(item.getPrice());
+		session.setAttribute("cartItem", cartItem);
+		
+		session.getAttribute("cartItem");
+		cartDao.create(cartItem);
+
+		//add current item and user to view
 		ModelAndView mav = new ModelAndView("userViewCurrentCart");
-		mav.addObject("item", item);
+		mav.addObject("cartItem", cartItem);
 		mav.addObject("cartOwner", cartOwner);
-		redir.addFlashAttribute("itemAddedMsg", "item successfully added");
+//		redir.addFlashAttribute("itemAddedMsg", "item successfully added");
+		//add list of all cart items to view
+		List<Cart> cart = cartDao.findAll();
+		mav.addObject("cart", cart);
+		List<Items> items = itemsDao.findAll();
+		mav.addObject("items", items);
 		return mav;
 	}
 	
-	
-	
-	
-
-	
-//NOTE (1/24/19): When each add item button is clicked, it needs to get the quantity and other row
-	//information, create an item, add that info to database, and needs to be connected somehow to the
-	//"checkout" button...
-//	@RequestMapping("/add-to-cart") //url path
-//	public ModelAndView addToCart(
-//			HttpSession session,
-//			RedirectAttributes redir) {
-	
-	//find the user from the session, get their username, and add that to the cart object
-//		User cartOwner = (User) session.getAttribute("user1");
-////		User userName = userDao.findbyUsername(cartOwner.getUsername()); //??
-//		session.setAttribute("user1", cartOwner);
-		
-	//get the current item by its id:
-//		Items currentItem = itemsDao.findById(currentItem.getId());
-//		List<Items> allItems = itemsDao.findAll(); //WHAT DAO METHOD DO I USE TO GET THE CURRENT ITEM?
-
-//		int i;
-//		for(i=0; i<allItems.size(); i--) {
-//			if(allItems[i] != )
-//		}
-		
-		
-	//create new cart item //IT DOESN'T LIKE THE WORD "NULL" FOR ID
-//		Cart cartItem = new Cart((Integer) null, currentItem.getId(), cartOwner.getUsername(), currentItem.getName(), currentItem.getQuantity(), currentItem.getPrice());
-		
-//		Cart cartItem = new Cart(1, 0, cartOwner.getUsername(), "coffee", 2, 2);
-		
-	//add new cart item to shoppingcart table and to session
-//		cartDao.create(cartItem);
-//		session.setAttribute("cartItem", cartItem);
-	
-	//redirect to a new user view with a new section added that shows current items in shopping cart
-//		Cart newCartItem = (Cart) session.getAttribute("cartItem");
-//		List<Items>items = itemsDao.findAll();
-//		User user = (User) session.getAttribute("user1");
-//		ModelAndView mav = new ModelAndView("userViewCurrentCart");
-//		redir.addFlashAttribute("itemAddedMsg", "item successfully added");
-////		mav.addObject("newCartItem", newCartItem);
-////		mav.addObject("items", items);
-////		mav.addObject("user1", user);
-//		return mav;
-		
-//		}
 
 
 

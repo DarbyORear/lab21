@@ -1,5 +1,6 @@
 package co.grandcircus.lab21;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 public class Cart {
 @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 private int id;
+@Column(name = "itemId")
 private int itemId;
 private String userName;
 private String itemName;
@@ -19,6 +21,7 @@ private float unitPrice;
 
 
 	public Cart() {	
+		super();
 	}
 
 
