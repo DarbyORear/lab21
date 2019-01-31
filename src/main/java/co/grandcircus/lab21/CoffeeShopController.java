@@ -263,9 +263,9 @@ public ModelAndView newUserView(HttpSession session) {
 		cartItem.setItemId(item.getId());
 		cartItem.setUserName(cartOwner.getUsername());
 		cartItem.setItemName(item.getName());
-//		cartItem.setItemQuantity(item.getQuantity()); //THIS NEEDS TO CHANGE TO VALUE OF INPUT
+		cartItem.setItemQuantity(item.getQuantity()); //THIS NEEDS TO CHANGE TO VALUE OF INPUT
 		//I think I might need to add another column to the items database for the quantity?
-		cartItem.setItemQuantity(cartItem.getItemQuantity());
+//		cartItem.setItemQuantity(cartItem.getItemQuantity());
 		cartItem.setUnitPrice(item.getPrice());
 		session.setAttribute("cartItem", cartItem);
 		
