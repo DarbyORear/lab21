@@ -93,6 +93,8 @@ public ModelAndView newUserView(HttpSession session) {
 	//needs to show userView page but for new user
 	List<Items>items = itemsDao.findAll();
 	User user = (User) session.getAttribute("newUser");
+	//ADDED THIS LINE ON 1/30
+	session.setAttribute("user1", user);
 	ModelAndView mav = new ModelAndView("userView");
 	mav.addObject("items", items);
 	mav.addObject("user1", user);
@@ -123,15 +125,28 @@ public ModelAndView newUserView(HttpSession session) {
 				
 	}
 	
+	//1/30/19: add logic so that it updates the quantity column in the items db 
+		//whenever a user enters a quantity
+	//NOTE: Updated this controller on 1/30, included request param and added for/while loop
 	@RequestMapping("/user-view") //url path
 	public ModelAndView showPracticePage(HttpSession session) {
 		List<Items>items = itemsDao.findAll();
 		User user = (User) session.getAttribute("user1");
+		
+//		for(int i=0; i < items.size(); i++) {
+////			ModelAndView mav = new ModelAndView("userView");
+//			int quantity = items.get(i).getQuantity(); //THIS IS NOT WHAT I WANT - THIS WILL GET THE QUANTITY THAT THE ADMIN ENTERED
+//			//add logic here that says to get the value entered into the jsp and update itemsDao
+//			itemsDao.update(items.get(quantity));
+//		}
+		
 		ModelAndView mav = new ModelAndView("userView");
 		mav.addObject("items", items);
 		mav.addObject("user1", user);
 		return mav;
 	}
+	
+	
 	
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpSession session, RedirectAttributes redir) {
@@ -164,20 +179,26 @@ public ModelAndView newUserView(HttpSession session) {
 		return new ModelAndView("redirect:/");
 	}
 	
-	//this one needs to delete it from their cart, not from the items table
-	@RequestMapping("/cart-item/{id}/delete")//DON'T WANT TO DELETE FROM ITEMS
-	public ModelAndView deleteFromCart(@PathVariable("id") int id) {
-		itemsDao.delete(id); //cartDao.delete(id);
-		return new ModelAndView("redirect:/cart");
+	//DELETE ITEM FROM CART
+	@RequestMapping("/cart-item/{id}/delete")
+	public ModelAndView deleteFromCart(@PathVariable("id") int id, HttpSession session) {
+		User user = (User) session.getAttribute("user1");
+		cartDao.delete(id); //cartDao.delete(id);
+		List<Items> items = itemsDao.findAll();
+		List<Cart> cart = cartDao.findByUsername(user.getUsername());
+		ModelAndView mav = new ModelAndView("redirect:/show-cart");
+		mav.addObject("items", items);
+		mav.addObject("cart", cart);
+		return mav;
 	}
 	
 	//This add-item is for admin use: adding a new item to the menu
-	@RequestMapping("/add-item")
+	@RequestMapping("/admin-add-item")
 	public ModelAndView showAddItemForm() {			
 		return new ModelAndView("addItem", "name", "add Item");
 	}
 	
-	@RequestMapping("/submit-item")
+	@RequestMapping("/admin-submit-item")
 	public ModelAndView submitCreateForm(
 		
 		@RequestParam("name")String name,
@@ -217,6 +238,8 @@ public ModelAndView newUserView(HttpSession session) {
 		itemsDao.update(item); //this might be the problem. I don't want to update the id.
 		return new ModelAndView("redirect:/items-admin");
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
 	
 //NOTE (1/30/19):
 	//The below section for adding items to cart mostly works. But I still need to
@@ -225,11 +248,12 @@ public ModelAndView newUserView(HttpSession session) {
 	//Also, flash attribute still doesn't work.
 	@RequestMapping(value="/add-to-cart/{id}") 
 	public ModelAndView addToCart(@PathVariable("id") int id, HttpSession session, RedirectAttributes redir) {
+
+		//get user from session
+				User cartOwner = (User) session.getAttribute("user1");
+
 		//find current item by id
 		Items item = itemsDao.findById(id);
-		
-		//get user from session
-		User cartOwner = (User) session.getAttribute("user1");
 		
 		//create a new cart item and add it to the database
 //THIS WORKS!
@@ -239,27 +263,85 @@ public ModelAndView newUserView(HttpSession session) {
 		cartItem.setItemId(item.getId());
 		cartItem.setUserName(cartOwner.getUsername());
 		cartItem.setItemName(item.getName());
-		cartItem.setItemQuantity(item.getQuantity()); //THIS NEEDS TO CHANGE TO VALUE OF INPUT
+//		cartItem.setItemQuantity(item.getQuantity()); //THIS NEEDS TO CHANGE TO VALUE OF INPUT
+		//I think I might need to add another column to the items database for the quantity?
+		cartItem.setItemQuantity(cartItem.getItemQuantity());
 		cartItem.setUnitPrice(item.getPrice());
 		session.setAttribute("cartItem", cartItem);
 		
 		session.getAttribute("cartItem");
 		cartDao.create(cartItem);
+		
+		//1. Tell the cart DAO to search cart by username and add those rows to session
+		List<Cart> userCart = cartDao.findByUsername(cartOwner.getUsername());
+		session.setAttribute("userCart", userCart);
+		
+		//figure out the running total price
+		//loop through all the items in the user's cart
+		//how do you select a specific column in a list?
+		session.getAttribute("userCart");
+		
+		float cartTotal = 0;
+		float itemTotal = 0;
+		int i;
+//		float itemTotal = cartItem.getItemQuantity() * cartItem.getUnitPrice();
+//		cartTotal = cartTotal + itemTotal;
+		for(i = 0; i < userCart.size(); i++) {
+			int quantity = userCart.get(i).getItemQuantity();
+			float price = userCart.get(i).getUnitPrice();
+			itemTotal = quantity * price;
+			cartTotal = cartTotal + itemTotal;
+		}
+		session.setAttribute("itemTotal", itemTotal);
+		session.setAttribute("cartTotal", cartTotal);
+		
 
 		//add current item and user to view
 		ModelAndView mav = new ModelAndView("userViewCurrentCart");
 		mav.addObject("cartItem", cartItem);
 		mav.addObject("cartOwner", cartOwner);
-//		redir.addFlashAttribute("itemAddedMsg", "item successfully added");
-		//add list of all cart items to view
-		List<Cart> cart = cartDao.findAll();
-		mav.addObject("cart", cart);
+		mav.addObject("itemTotal", itemTotal);
+		mav.addObject("cartTotal", cartTotal);
+		mav.addObject("userCart", userCart);
+
 		List<Items> items = itemsDao.findAll();
 		mav.addObject("items", items);
 		return mav;
 	}
 	
+	//NEED TO ADD A CONTROLLER FOR VIEWING THE CART (when not adding an item):
+	
+	@RequestMapping("/show-cart")
+	public ModelAndView showCart(HttpSession session) {
+		User cartOwner = (User) session.getAttribute("user1");
+		List<Cart> userCart = cartDao.findByUsername(cartOwner.getUsername());
+		List<Items> items = itemsDao.findAll();
+		session.setAttribute("userCart", userCart);		
+		float cartTotal = 0;
+		float itemTotal = 0;
+		int i;
+		for(i = 0; i < userCart.size(); i++) {
+			int quantity = userCart.get(i).getItemQuantity();
+			float price = userCart.get(i).getUnitPrice();
+			itemTotal = quantity * price;
+			cartTotal = cartTotal + itemTotal;
+		}
+		session.setAttribute("itemTotal", itemTotal);
+		session.setAttribute("cartTotal", cartTotal);
+		
 
+		//add current item and user to view
+		ModelAndView mav = new ModelAndView("userViewCurrentCart");
+		mav.addObject("cartOwner", cartOwner);
+		mav.addObject("itemTotal", itemTotal);
+		mav.addObject("cartTotal", cartTotal);
+		mav.addObject("userCart", userCart);
+		mav.addObject("items", items);
+		return mav;
+	}
+	
+
+	///////////////////////////////////////////////////////////////////////////////////////////
 
 
 }

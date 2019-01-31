@@ -15,27 +15,27 @@
 		  		<table class="table table-bordered table-hover">
 			<thead>
 				<tr id = "table-headers">
-					<th>Name</th><th>Price Per Unit</th><th>Quantity</th><th>Delete</th>
+					<th>Name</th><th>Price Per Unit</th><th>Quantity</th><th>Delete</th><th>Item Total</th>
 				</tr>
 			</thead>
 			<tbody id = "table-body">
-				<c:forEach var="myCartItem" items="${cart}">
+				<c:forEach var="myCartItem" items="${userCart}">
 			<tr>
 					<td>${myCartItem.itemName}</td>
 					<td>$${myCartItem.unitPrice}0</td>
 					<td>${myCartItem.itemQuantity}</td>
-					<td><a href = "#">Delete</a></td>
+					<td><a href = "/cart-item/${myCartItem.id}/delete">Delete</a></td>
+					<td>$${itemTotal}0</td> <!-- THIS DOESN'T WORK. NOT SURE WHY. CARTTOTAL WORKS FINE. -->
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		
+		<p> Total: $${cartTotal}0</p>
 		<div>
 		<p></p>
 		Keep shopping?
 		<p></p>
 		</div>
-		
 		
 			  		<table class="table table-bordered table-hover">
 			<thead>

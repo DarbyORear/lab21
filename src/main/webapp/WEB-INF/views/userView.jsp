@@ -33,13 +33,14 @@
 					<td>${myitem.name}</td>
 					<td>${myitem.description}</td>
 					<td>$${myitem.price}0</td>
-					<td><input type = "number" value = "${myitem.quantity}"></td>
+					<td><input type = "number" value = ""></td>
 					<td><a href = "/add-to-cart/${myitem.id}">Add Item</a></td>
 				</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<div class = "profileButtons">
+		<form action = "/show-cart"><button>View Cart</button></form>
 		<form action = "/cart"><button>Checkout</button></form>
 		<form action = "/logout"><button>Logout</button></form>
 		</div>

@@ -3,10 +3,12 @@ package co.grandcircus.lab21;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
+
 
 @Repository
 @Transactional
@@ -46,11 +48,25 @@ public class CartDao {
 	}
 
 //FIXME: THIS SHOULD BE A LIST OF ALL ITEMS UNDER ONE USERNAME
-	public Cart findByUsername(String userName) {
-		// TODO Auto-generated method stub
-		return em.createQuery("FROM Cart WHERE userName = :userName", Cart.class).setParameter("userName", userName).getSingleResult();
-
+//	public Cart findByUsername(String userName) {
+//		// TODO Auto-generated method stub
+//		return em.createQuery("FROM Cart WHERE userName = :userName", Cart.class).setParameter("userName", userName).getSingleResult();
+//
+//	}
+	
+	//list of cart items based on username
+	public List<Cart> findByUsername(String userName){
+		try {
+		return em.createQuery("FROM Cart WHERE userName = :userName", Cart.class).setParameter("userName", userName).getResultList();
+	} catch (NoResultException e)  {
+		return null;
 	}
+	}
+	
+	
+	
+	
+	
 	
 	public List<Cart> findAllItems(){
 		return em.createQuery("FROM Cart", Cart.class).getResultList(); //FROM User OR FROM users???
