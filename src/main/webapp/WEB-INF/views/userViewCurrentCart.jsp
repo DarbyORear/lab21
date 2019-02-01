@@ -7,15 +7,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Updated Cart</title>
+<link rel = "stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
+<link rel = "stylesheet" href = "/style.css">
 </head>
 <body>
+<div class = "container">
 <h1>${cartItem.itemName} has been added to your shopping cart.</h1>
 	<p>Here are all the items in your cart so far: </p>
 	
 		  		<table class="table table-bordered table-hover">
 			<thead>
 				<tr id = "table-headers">
-					<th>Name</th><th>Price Per Unit</th><th>Quantity</th><th>Delete</th><th>Item Total</th>
+					<th>Name</th><th>Price Per Unit</th><th>Quantity</th><th>Delete</th>
 				</tr>
 			</thead>
 			<tbody id = "table-body">
@@ -25,7 +28,6 @@
 					<td>$${myCartItem.unitPrice}0</td>
 					<td>${myCartItem.itemQuantity}</td>
 					<td><a href = "/cart-item/${myCartItem.id}/delete">Delete</a></td>
-					<td>$${itemTotal}0</td> <!-- THIS DOESN'T WORK. NOT SURE WHY. CARTTOTAL WORKS FINE. -->
 				</tr>
 				</c:forEach>
 			</tbody>
@@ -59,11 +61,9 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<form action = "/logout"><button>Logout</button></form>
-		
-	
+		<form action = "/check-out"><button>Check Out</button></form>
+		<form action = "/logout"><button>Log Out</button></form>
 
-
-
+</div>
 </body>
 </html>

@@ -233,41 +233,13 @@ public ModelAndView newUserView(HttpSession session) {
 		return new ModelAndView("redirect:/items-admin");
 }
 
-	//1/31/19: This is probably not right -- do I need to specify that I want it to update
-		//the quantity column in the items table? What about the cart table?
-//	@RequestMapping("/update-quantity/{id}")
-//	public ModelAndView updateQuant(@PathVariable("id") int id,
-//			@RequestParam("quantity") int quantity, HttpSession session) {
-//
-//		//find current item by id
-//		Items item = itemsDao.findById(id);
-//		//wait. it needs to grab the input value first and then update the column.
-//		//How do I do that??
-//		quantity = item.getQuantity();
-////		itemsDao.update(quantity);
-//		itemsDao.update(item);
-//		session.setAttribute("quantity", quantity);
-//		return new ModelAndView("redirect:/add-to-cart/{id}");
-		
-//		for(int i=0; i < items.size(); i++) {
-////			ModelAndView mav = new ModelAndView("userView");
-//			int quantity = items.get(i).getQuantity(); 
-//			//add logic here that says to get the value entered into the jsp and update itemsDao
-//			itemsDao.update(items.get(quantity));
-//			session.setAttribute("quantity", quantity);
-//		}
-		
-//	}
 	
 
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////
 	
 //NOTE (1/30/19):
-	//The below section for adding items to cart mostly works. But I still need to
-	//put in the logic for only showing the cart items that belong to the user who is logged in.
-	//Right now, it shows everyone's items that have ever been added to the database.
-	//Also, flash attribute still doesn't work.
+	//flash attribute still doesn't work.
 	@RequestMapping(value="/add-to-cart/{id}") 
 	public ModelAndView addToCart(@PathVariable("id") int id,
 			@RequestParam("quantity") int quantity,
@@ -330,7 +302,6 @@ public ModelAndView newUserView(HttpSession session) {
 		return mav;
 	}
 	
-	//NEED TO ADD A CONTROLLER FOR VIEWING THE CART (when not adding an item):
 	
 	@RequestMapping("/show-cart")
 	public ModelAndView showCart(HttpSession session) {
@@ -364,5 +335,14 @@ public ModelAndView newUserView(HttpSession session) {
 
 	///////////////////////////////////////////////////////////////////////////////////////////
 
+@RequestMapping("/check-out")
+public ModelAndView purchased(HttpSession session) {
+	ModelAndView mav = new ModelAndView("checkOut");
+	User user = (User) session.getAttribute("user1");
+	mav.addObject("user", user);
+	float total = (float) session.getAttribute("cartTotal");
+	mav.addObject("total", total);
+	return mav;
+}
 
 }

@@ -43,8 +43,7 @@
 		</table>
 		<div class = "profileButtons">
 		<form action = "/show-cart"><button>View Cart</button></form>
-		<form action = "/cart"><button>Checkout</button></form>
-		<form action = "/logout"><button>Logout</button></form>
+		<form action = "/logout"><button>Log Out</button></form>
 		</div>
 	
 		
