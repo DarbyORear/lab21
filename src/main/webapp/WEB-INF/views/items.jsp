@@ -23,7 +23,7 @@
 				<tr>
 					<td><a href="/items/${items.id}">${items.name}</a></td>
 					<td>${items.description}</td>
-					<td>${items.quantity}</td>
+					<td><input type = "number" value = ""></td>
 					<td>${items.price}</td>
 				</tr>
 				</c:forEach>

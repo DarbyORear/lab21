@@ -133,12 +133,6 @@ public ModelAndView newUserView(HttpSession session) {
 		List<Items>items = itemsDao.findAll();
 		User user = (User) session.getAttribute("user1");
 		
-//		for(int i=0; i < items.size(); i++) {
-////			ModelAndView mav = new ModelAndView("userView");
-//			int quantity = items.get(i).getQuantity(); //THIS IS NOT WHAT I WANT - THIS WILL GET THE QUANTITY THAT THE ADMIN ENTERED
-//			//add logic here that says to get the value entered into the jsp and update itemsDao
-//			itemsDao.update(items.get(quantity));
-//		}
 		
 		ModelAndView mav = new ModelAndView("userView");
 		mav.addObject("items", items);
@@ -203,7 +197,7 @@ public ModelAndView newUserView(HttpSession session) {
 		
 		@RequestParam("name")String name,
 		@RequestParam("description")String description,
-		@RequestParam("quantity") int quantity,
+		@RequestParam("adminQuantity") int adminQuantity,
 		@RequestParam("price") float price)
 {
 	
@@ -212,7 +206,7 @@ public ModelAndView newUserView(HttpSession session) {
 	Items newItem = new Items();
 	newItem.setName(name); //matches String in Requestparam
 	newItem.setDescription(description); //matches String in Requestparam
-	newItem.setQuantity(quantity); //matches String in Requestparam
+	newItem.setAdminQuantity(adminQuantity); //matches String in Requestparam
 	newItem.setPrice(price);
 	
 	itemsDao.create(newItem);
@@ -235,10 +229,38 @@ public ModelAndView newUserView(HttpSession session) {
 //NOTE (1/29/19): This works!
 	@RequestMapping(value="/item/{id}/update", method=RequestMethod.POST)
 	public ModelAndView submitEditForm(@PathVariable("id") int id, Items item) {
-		itemsDao.update(item); //this might be the problem. I don't want to update the id.
+		itemsDao.update(item);
 		return new ModelAndView("redirect:/items-admin");
 }
 
+	//1/31/19: This is probably not right -- do I need to specify that I want it to update
+		//the quantity column in the items table? What about the cart table?
+//	@RequestMapping("/update-quantity/{id}")
+//	public ModelAndView updateQuant(@PathVariable("id") int id,
+//			@RequestParam("quantity") int quantity, HttpSession session) {
+//
+//		//find current item by id
+//		Items item = itemsDao.findById(id);
+//		//wait. it needs to grab the input value first and then update the column.
+//		//How do I do that??
+//		quantity = item.getQuantity();
+////		itemsDao.update(quantity);
+//		itemsDao.update(item);
+//		session.setAttribute("quantity", quantity);
+//		return new ModelAndView("redirect:/add-to-cart/{id}");
+		
+//		for(int i=0; i < items.size(); i++) {
+////			ModelAndView mav = new ModelAndView("userView");
+//			int quantity = items.get(i).getQuantity(); 
+//			//add logic here that says to get the value entered into the jsp and update itemsDao
+//			itemsDao.update(items.get(quantity));
+//			session.setAttribute("quantity", quantity);
+//		}
+		
+//	}
+	
+
+	
 /////////////////////////////////////////////////////////////////////////////////////////////////
 	
 //NOTE (1/30/19):
@@ -247,25 +269,24 @@ public ModelAndView newUserView(HttpSession session) {
 	//Right now, it shows everyone's items that have ever been added to the database.
 	//Also, flash attribute still doesn't work.
 	@RequestMapping(value="/add-to-cart/{id}") 
-	public ModelAndView addToCart(@PathVariable("id") int id, HttpSession session, RedirectAttributes redir) {
+	public ModelAndView addToCart(@PathVariable("id") int id,
+			@RequestParam("quantity") int quantity,
+			HttpSession session, RedirectAttributes redir) {
 
 		//get user from session
-				User cartOwner = (User) session.getAttribute("user1");
+		User cartOwner = (User) session.getAttribute("user1");
 
 		//find current item by id
 		Items item = itemsDao.findById(id);
 		
 		//create a new cart item and add it to the database
-//THIS WORKS!
 		//2. construct a new cart item
 		Cart cartItem = new Cart();
 //		cartItem.setId(null);
 		cartItem.setItemId(item.getId());
 		cartItem.setUserName(cartOwner.getUsername());
 		cartItem.setItemName(item.getName());
-		cartItem.setItemQuantity(item.getQuantity()); //THIS NEEDS TO CHANGE TO VALUE OF INPUT
-		//I think I might need to add another column to the items database for the quantity?
-//		cartItem.setItemQuantity(cartItem.getItemQuantity());
+		cartItem.setItemQuantity(quantity);
 		cartItem.setUnitPrice(item.getPrice());
 		session.setAttribute("cartItem", cartItem);
 		
@@ -287,9 +308,9 @@ public ModelAndView newUserView(HttpSession session) {
 //		float itemTotal = cartItem.getItemQuantity() * cartItem.getUnitPrice();
 //		cartTotal = cartTotal + itemTotal;
 		for(i = 0; i < userCart.size(); i++) {
-			int quantity = userCart.get(i).getItemQuantity();
+			int quant = userCart.get(i).getItemQuantity();
 			float price = userCart.get(i).getUnitPrice();
-			itemTotal = quantity * price;
+			itemTotal = quant * price;
 			cartTotal = cartTotal + itemTotal;
 		}
 		session.setAttribute("itemTotal", itemTotal);

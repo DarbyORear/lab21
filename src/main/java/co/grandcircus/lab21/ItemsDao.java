@@ -44,12 +44,12 @@ import org.springframework.transaction.annotation.Transactional;
 			String sql = "UPDATE items SET name = ?, description = ?, quantity = ?, price = ? WHERE id = ?";
 			// Use .update for SQL INSERT, UPDATE, and DELETE
 			// All the parameters after the first specify values to fill in the ?s in the SQL.
-			jdbcTemplate.update(sql, items.getName(), items.getDescription(), items.getQuantity(), items.getPrice(), items.getId());
+			jdbcTemplate.update(sql, items.getName(), items.getDescription(), items.getPrice(), items.getId());
 		}
 		
 		public void create(Items items) {
 			String sql = "INSERT INTO items (name, description, quantity, price) VALUES (?, ?, ?)";
-			jdbcTemplate.update(sql, items.getName(), items.getDescription(), items.getQuantity(), items.getPrice(), items.getId());
+			jdbcTemplate.update(sql, items.getName(), items.getDescription(), items.getPrice(), items.getId());
 		}
 		
 		public void delete(int id) {

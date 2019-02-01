@@ -32,16 +32,6 @@
 			</thead>
 			<tbody id = "table-body">
 				<c:forEach var="myitem" items="${items}">
-					
-			<!--  	<tr>
-					<td><a href="/index/${myitem.id}">${myitem.name}</a></td>
-					<td>${myitem.description}</td>
-					<td>${myitem.quantity}</td>
-					<td>${myitem.price}</td>
-					<td><a href ="/item/${myitem.id}/delete">Delete Item</a></td>
-					<td><a href ="/item/${myitem.id}/update">Edit Item</a></td>
-				</tr>
-			-->
 			
 			<tr>
 					<td>${myitem.name}</td>

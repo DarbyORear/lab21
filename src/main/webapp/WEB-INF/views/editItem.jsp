@@ -38,7 +38,7 @@
 
 					<div class="form-group row">
       				<label class="control-label col-sm-4 text-left" for="quantity">Quantity:</label>
-					<input class = "form-control col-sm-8" type = "number" name ="quantity" placeholder = "${item.quantity}">
+					<input class = "form-control col-sm-8" type = "number" name ="quantity" placeholder = "${item.adminQuantity}">
 					</div>
 					
 					<div class = "form-group row">

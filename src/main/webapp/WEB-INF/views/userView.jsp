@@ -33,8 +33,10 @@
 					<td>${myitem.name}</td>
 					<td>${myitem.description}</td>
 					<td>$${myitem.price}0</td>
-					<td><input type = "number" value = ""></td>
-					<td><a href = "/add-to-cart/${myitem.id}">Add Item</a></td>
+					<form action = "/add-to-cart/${myitem.id}">
+					<td><input type = "number" name = "quantity"></td>
+					<td><button>Add Item</button></td>
+					</form>
 				</tr>
 				</c:forEach>
 			</tbody>

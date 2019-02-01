@@ -33,7 +33,7 @@
 		  	<tr>
 					<td>${myitem.name}</td>
 					<td>${myitem.description}</td>
-					<td><input type = "number" value = ""></td>
+					<td><input type = "number" value = "${myitem.adminQuantity}"></td>
 					<td>$${myitem.price}0</td>
 					<td><a href ="/item/${myitem.id}/delete">Delete Item</a></td>
 				<!-- <td><a href ="/item/${myitem.id}/update">Edit Item</a></td> -->

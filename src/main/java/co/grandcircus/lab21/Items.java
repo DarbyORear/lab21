@@ -1,5 +1,6 @@
 package co.grandcircus.lab21;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,18 +17,19 @@ public class Items {
 	private int id;
 	private String name;
 	private String description;
-	private int quantity;
+	@Column (name = "admin_quantity", nullable = true)
+	private int adminQuantity;
 	private float price;
 
 
 	public Items() {}
 	
-	public Items(int id, String name, String description, int quantity, float price) {
+	public Items(int id, String name, String description, int adminQuantity, float price) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.quantity = quantity;
+		this.adminQuantity = adminQuantity;
 		this.price = price;
 	}
 
@@ -55,13 +57,14 @@ public class Items {
 		this.description = description;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public int getAdminQuantity() {
+		return adminQuantity;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setAdminQuantity(int adminQuantity) {
+		this.adminQuantity = adminQuantity;
 	}
+
 
 	public float getPrice() {
 		return price;
@@ -70,8 +73,6 @@ public class Items {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-
-
 
 }
 
