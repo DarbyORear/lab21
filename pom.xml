@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<!-- changing from jar to war to deploy to AWS 
 	<packaging>war</packaging> -->
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>lab21</name>
 	<description>Demo project for Spring Boot</description>
 
