@@ -1,4 +1,4 @@
-package co.grandcircus.lab21;
+package co.grandcircus.lab21.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

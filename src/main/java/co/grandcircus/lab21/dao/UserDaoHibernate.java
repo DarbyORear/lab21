@@ -1,4 +1,4 @@
-package co.grandcircus.lab21;
+package co.grandcircus.lab21.dao;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.grandcircus.lab21.User;
+import co.grandcircus.lab21.entities.User;
 
 
 @Repository

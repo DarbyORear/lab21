@@ -1,4 +1,4 @@
-package co.grandcircus.lab21;
+package co.grandcircus.lab21.dao;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
+
+import co.grandcircus.lab21.entities.Cart;
 
 
 @Repository

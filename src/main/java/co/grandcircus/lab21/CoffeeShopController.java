@@ -13,6 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import co.grandcircus.lab21.dao.CartDao;
+import co.grandcircus.lab21.dao.ItemsDaoHibernate;
+import co.grandcircus.lab21.dao.UserDaoHibernate;
+import co.grandcircus.lab21.entities.Cart;
+import co.grandcircus.lab21.entities.Items;
+import co.grandcircus.lab21.entities.User;
+
 
 
 @Controller

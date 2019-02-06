@@ -1,4 +1,4 @@
-package co.grandcircus.lab21;
+package co.grandcircus.lab21.dao;
 
 	import java.util.List;
 
@@ -7,6 +7,8 @@ package co.grandcircus.lab21;
 
 	import org.springframework.stereotype.Repository;
 	import org.springframework.transaction.annotation.Transactional;
+
+import co.grandcircus.lab21.entities.Items;
 
 
 	@Repository
